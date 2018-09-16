@@ -1,0 +1,106 @@
+python3 --version
+Python 3.6.5
+
+apt install python3-pip
+apt install virtualenv (or pip3 install virtualenv)
+
+which python3
+# /usr/bin/python3
+
+-------------------------
+cd /prod/riot
+virtualenv env -p /usr/bin/python3
+
+. env/bin/activate
+(env)
+
+deactivate
+-----------------------------
+extract archive:
+tar xvf riot.tar
+-----------------------------
+project folder:
+/prod/riot/lolfind
+
+install modules:
+pip3 install requests
+pip3 install numpy
+pip3 install pandas
+
+start tests:
+python3 riot_api_v1.py
+
+
+-----------------------------
+flask:
+pip3 install Flask
+http://flask.pocoo.org/docs/1.0/quickstart/
+
+windows:
+set FLASK_APP=lolfindsite.py
+flask run --host=0.0.0.0 --port=80
+
+linux:
+$ export FLASK_APP=lolfindsite.py
+$ python3 -m flask run --host=0.0.0.0 --port=80
+ * Running on http://127.0.0.1:5000/
+
+ 
+debugmode:
+export FLASK_ENV=development
+(On Windows you need to use set instead of export.)
+This does the following things:
+1 it activates the debugger
+2 it activates the automatic reloader
+3 it enables the debug mode on the Flask application.
+You can also control debug mode separately from the environment by exporting FLASK_DEBUG=1.
+
+---------------------
+riot apps data:
+lolfind.ru
+
+Objective of the project:
+The expanded analytics accessible to all players, based on the analysis of matches and technicians of machine training.
+1. Player Statistics
+2. Statistics of matches in the mode - Nexus Blitz
+3. Statistics of top champions
+4. Calculator of the chance to win the selection of champions
+5. Top players statistics
+6. And much more
+
+logo: http://lolfind.ru/static/lol.png
+
+v 0.1 18.08.2018:
+1. launch of the site in a test mode for data collection through the API and a set of statistics on the "Nexus Blitz"
+2. Launching the http://lolfind.ru/stats/ page showing the progress of the cache load
+3. launch of the test page http://lolfind.ru/summoner/vinchileo with the list of the last matches of the player
+
+--------------------------
+webmin:
+sudo nano /etc/apt/sources.list
+
+Then add this line to the bottom of the file to add the new repository:
+/etc/apt/sources.list
+deb http://download.webmin.com/download/repository sarge contrib
+Save the file and exit the editor.
+
+Next, add the Webmin PGP key so that your system will trust the new repository:
+wget http://www.webmin.com/jcameron-key.asc
+sudo apt-key add jcameron-key.asc
+Next, update the list of packages to include the Webmin repository:
+sudo apt-get update 
+Then install Webmin:
+sudo apt-get install webmin 
+link to use:
+https://lolfind.ru:10000/
+---------------------------------
+cron job:
+@reboot cd /prod/riot/; . env/bin/activate; cd lolfind/; export FLASK_APP=lolfindsite.py; export LC_ALL=C.UTF-8; export LANG=C.UTF-8; python3 -m flask run --host=0.0.0.0 --port=80 #start flask
+
+----------
+install from git:
+1. need create file apikey.txt and write to it riot apps or dev api key
+2. need create 2 folders: 
+	matches/*
+	matchlists/*
+3. unpack file cashedmatches-set.zip to txt file (github disabled push files more 100MB)
